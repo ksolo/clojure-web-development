@@ -10,7 +10,7 @@
            [:li
             [:blockquote message]
             [:p "-" [:cite name]]
-            [:time timestamp]])])
+            [:time (format-time timestamp)]])])
 
 (defn home [& [name message error]]
   (layout/common
@@ -46,6 +46,11 @@
     (do
       (db/save-message name message)
       (home))))
+
+(defn format-time [timestamp]
+  (-> "dd/MM/yyyy"
+    (java.text.SimpleDateFormat.)
+    (.format timestamp)))
 
 (defroutes home-routes
   (GET "/" [] (home))
