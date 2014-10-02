@@ -7,6 +7,7 @@
             [compojure.handler :as handler]
             [compojure.route :as route]
             [noir.session :as session]
+            [noir.validation :refer [wrap-noir-validation]]
             [guestbook.routes.auth :refer [auth-routes]]
             [guestbook.routes.home :refer [home-routes]]
             [guestbook.models.db :as db]))
@@ -30,5 +31,7 @@
         auth-routes
         home-routes
         app-routes))
+    (wrap-base-url)
     (session/wrap-noir-session
-      {:store (memory-store)})))
+      {:store (memory-store)})
+    (wrap-noir-validation)))
