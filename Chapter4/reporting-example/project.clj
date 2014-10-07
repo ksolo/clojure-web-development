@@ -5,7 +5,7 @@
                  [compojure "1.1.6"]
                  [hiccup "1.0.5"]
                  [ring-server "0.3.1"]
-                 [postgresql/postgresql "0.1-901.jdbc4"]
+                 [postgresql/postgresql "9.1-901.jdbc4"]
                  [org.clojure/java.jdbc "0.2.3"]
                  [clj-pdf "1.11.6"]]
   :plugins [[lein-ring "0.8.12"]]
