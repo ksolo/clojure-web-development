@@ -25,6 +25,6 @@
     ["Sachin Tendulkar", "Cricket Player", "Mumbai", "India"]
     ["Michael Schumacher", "F1 Racer", "Cologne", "Germany"]))
 
-(defn read-employes []
+(defn read-employees []
   (sql/with-connection
     db (sql/with-query-results rs ["select * from employees"] (doall rs))))
