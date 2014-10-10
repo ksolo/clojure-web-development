@@ -17,7 +17,7 @@
       (label "user-id" "user id")
       (text-field "id" id)
       [:br]
-      (validaton/on-error :pass error-item)
+      (validation/on-error :pass error-item)
       (label "pass" "password")
       (password-field "pass")
       [:br]
@@ -32,7 +32,7 @@
     [:id "user id is required"])
   (validation/rule (validation/min-length? pass 5)
     [:pass "password must be at least 5 characters"])
-  (validaton/rule (= pass pass1)
+  (validation/rule (= pass pass1)
     [:pass "entered passwords do not match"])
   (not (validation/errors? :id :pass :pass1)))
 
