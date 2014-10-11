@@ -5,7 +5,9 @@
             [gallery.views.layout :as layout]
             [noir.session :as session]
             [noir.validation :as validation]
-            [noir.response :as resp]))
+            [noir.response :as resp]
+            [noir.util.crypt :as crypt]
+            [gallery.models.db :as db]))
 
 (defn error-item [[error]]
   [:div.error error])
@@ -41,7 +43,9 @@
 
 (defn handle-registration [id pass pass1]
   (if (valid? id pass pass1)
-    (do (session/put! :user id)
+    (do
+      (db/create-user {:id id :pass (crypt/encrypt pass)})
+      (session/put! :user id)
       (resp/redirect "/"))
     (registration-page id)))
 
