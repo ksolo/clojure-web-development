@@ -41,12 +41,24 @@
     [:pass "entered passwords do not match"])
   (not (validation/errors? :id :pass :pass1)))
 
+(defn format-error [id ex]
+  (cond
+    (and (instance? org.postgresql.util.PSQLException ex)
+      (= 0 (.getErrorCode ex)))
+    (str "The user with the id " id " already exists!")
+
+    :else
+    "An error has occured while processing the request"))
+
 (defn handle-registration [id pass pass1]
   (if (valid? id pass pass1)
-    (do
+    (try
       (db/create-user {:id id :pass (crypt/encrypt pass)})
       (session/put! :user id)
-      (resp/redirect "/"))
+      (resp/redirect "/")
+      (catch Exception ex
+        (validation/rule false [:id (format-error id ex)])
+        (registration-page)))
     (registration-page id)))
 
 (defroutes auth-routes
