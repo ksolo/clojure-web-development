@@ -5,7 +5,12 @@
   {:subprotocol "postgresql"
    :subname "//localhost/gallery"})
 
+(defmacro with-db [f & body]
+  `(sql/with-connection ~db (~f ~@body)))
+
 (def create-user [user]
-  (sql/with-connection
-    db
-    (sql/insert-record :users user)))
+  (with-db sql/insert-record :users user))
+
+(def get-user [id]
+  (with-db sql/with-query-results
+    res ["select * from users where id = ?" id] (first res)))
