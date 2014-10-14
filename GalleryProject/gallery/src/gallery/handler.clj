@@ -3,7 +3,8 @@
             [compojure.core :refer [defroutes]]
             [noir.util.middleware :as noir-middleware]
             [gallery.routes.home :refer [home-routes]]
-            [gallery.routes.auth :refer [auth-routes]]))
+            [gallery.routes.auth :refer [auth-routes]]
+            [gallery.routes.upload :refer [upload-routes]]))
 
 (defn init []
   (println "gallery is starting"))
@@ -19,4 +20,5 @@
   (noir-middleware/app-handler
     [auth-routes
      home-routes
+     upload-routes
      app-routes]))
