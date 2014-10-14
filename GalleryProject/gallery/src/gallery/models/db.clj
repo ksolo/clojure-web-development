@@ -1,4 +1,4 @@
-(ns picture-gallery.models.db
+(ns gallery.models.db
   (:require [clojure.java.jdbc :as sql]))
 
 (def db
@@ -8,9 +8,9 @@
 (defmacro with-db [f & body]
   `(sql/with-connection ~db (~f ~@body)))
 
-(def create-user [user]
+(defn create-user [user]
   (with-db sql/insert-record :users user))
 
-(def get-user [id]
+(defn get-user [id]
   (with-db sql/with-query-results
     res ["select * from users where id = ?" id] (first res)))
