@@ -18,6 +18,16 @@
             java.awt.geom.AffineTransform
             javax.imageio.ImageIO))
 
+(def thumb-size 150)
+(def thumb-prefix "thumb_")
+
+(defn scale [img ratio width height]
+  (let [scale (AffineTransform/getScaleInstance
+                (double ratio) (double ratio))
+        transform-op (AffineTransformOp.
+                        scale AffineTransformOp/TYPE_BILINEAR)]
+    (.filter tranform-op img (BufferedImage. width height (.getType img)))))
+
 (defn upload-page [info]
   (layout/common
     [:h2 "Upload an image"]
