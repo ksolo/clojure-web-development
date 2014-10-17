@@ -62,6 +62,7 @@
     (try
       (db/create-user {:id id :pass (crypt/encrypt pass)})
       (session/put! :user id)
+      (create-gallery-path)
       (resp/redirect "/")
       (catch Exception ex
         (validation/rule false [:id (format-error id ex)])

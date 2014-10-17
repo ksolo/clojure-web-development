@@ -43,12 +43,14 @@
       (File. (str path thumb-prefix filename)))))
 
 (defn upload-page [info]
-  (layout/common
-    [:h2 "Upload an image"]
-    [:p info]
-    (form-to {:enctype "mutlipart/form-data"} [:post "/upload"]
-      (file-upload :file)
-      (submit-button "upload"))))
+  (if (session/get :user)
+    (layout/common
+      [:h2 "Upload an image"]
+      [:p info]
+      (form-to {:enctype "mutlipart/form-data"} [:post "/upload"]
+        (file-upload :file)
+        (submit-button "upload")))
+    (resp/redirect "/")))
 
 (defn handle-upload [{:keys [filename] :as file}]
   (upload-page
