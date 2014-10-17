@@ -65,10 +65,11 @@
         (catch Exception ex
           (str "error uploading file " (.getMessage ex)))))))
 
-(defn serve-file [file-name]
-  (file-response (str (gallery-path) File/separator file-name)))
+(defn serve-file [user-id file-name]
+  (file-response (str galleryies File/separator user-id File/separator file-name)))
 
 (defroutes upload-routes
   (GET "/upload" [info] (upload-page info))
   (POST "/upload" {params :params} (upload-page params))
-  (GET "/img/:file-name" [file-name] (serve-file file-name)))
+  (GET "/img/:user-id/:file-name" [user-id file-name]
+    (serve-file user-id file-name)))

@@ -7,7 +7,14 @@
             [noir.validation :as validation]
             [noir.response :as resp]
             [noir.util.crypt :as crypt]
-            [gallery.models.db :as db]))
+            [gallery.models.db :as db]
+            [gallery.util :refer [gallery-path]])
+  (:import java.io.File))
+
+(defn create-gallery-path []
+  (let [user-path (File. (gallery-path))]
+    (if-not (.exists user-path) (.mkdirs user-path))
+    (str (.getAbsolutePath user-path) File/separator)))
 
 (defn error-item [[error]]
   [:div.error error])

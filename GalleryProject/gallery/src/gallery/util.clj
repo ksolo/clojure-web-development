@@ -1,4 +1,7 @@
-(ns gallery.util)
+(ns gallery.util
+  (:require [noir/session :as session]))
+
+(def gallery "galleries")
 
 (defn gallery-path []
-  "galleries")
+  (str galleries File/separator (session/get :user)))
