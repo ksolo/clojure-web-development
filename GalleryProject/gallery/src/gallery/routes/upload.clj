@@ -55,9 +55,13 @@
     (if (empty? filename)
       "please select a file to upload"
       (try
+        ;;save the file and create thumbnail
         (noir.io/upload-file (gallery-path) file :create-path? true)
+        (save-thumbnail file)
+        ;;display the thumbnail
         (image {:height "150px"}
-          (str "/img/" (url-encode filename)))
+          (str "/img/" thumb-prefix (url-encode filename)))
+
         (catch Exception ex
           (str "error uploading file " (.getMessage ex)))))))
 
