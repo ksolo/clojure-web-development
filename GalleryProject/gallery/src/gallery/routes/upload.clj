@@ -28,6 +28,20 @@
                         scale AffineTransformOp/TYPE_BILINEAR)]
     (.filter tranform-op img (BufferedImage. width height (.getType img)))))
 
+(defn scale-image [file]
+  (let [img        (ImageIO/read file)
+        img-width  (.getWidth img)
+        img-height (.getHeight img)
+        ratio      (/ thumb-size img-height)]
+    (scale img ratio (int (* img-width ratio)) thumb-size)))
+
+(defn save-thumbnail [{:keys [filename]}]
+  (let [path (str (gallery-path) File/separaator)]
+    (ImageIO/write
+      (scale-image (io/input-stream (str path filename)))
+      "jpeg"
+      (File. (str path thumb-prefix filename)))))
+
 (defn upload-page [info]
   (layout/common
     [:h2 "Upload an image"]
