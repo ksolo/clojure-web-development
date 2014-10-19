@@ -14,10 +14,12 @@
 (defn common [& content]
   (base
     (if-let [user (session/get :user)]
-      [:div (link-to "/logout" (str "logout" user))]
-      [:div (link-to "register" "register")
-        (form-to [:post "/login"]
-          (text-field {:placeholder "screen name"} "id")
-          (password-field {:placeholder "password"} "pass")
-          (submit-button "login"))])
+      (list
+        [:div (link-to "/upload" "upload images")]
+        [:div (link-to "logout" (str "logout" user))])
+      [:div (link-to "/register" "register")
+       (form-to [:post "/login"]
+                (text-field {:placeholder "screen name"} "id")
+                (password-field {:placeholder "password"} "pass")
+                (submit-button "login"))])
     content))

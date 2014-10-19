@@ -60,11 +60,7 @@
         (save-thumbnail file)
         (db/add-image (session/get :user) filename)
         (image {:height "150px"}
-          (str "/img/"
-               (session/get :user)
-               "/"
-               thumb-prefix
-               (url-encode filename)))
+          (thumb-uri (session/get :user) filename))
         (catch Exception ex
           (str "error uploading file " (.getMessage ex)))))))
 
