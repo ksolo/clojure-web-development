@@ -43,14 +43,13 @@
       (File. (str path thumb-prefix filename)))))
 
 (defn upload-page [info]
-  (if (session/get :user)
-    (layout/common
-      [:h2 "Upload an image"]
-      [:p info]
-      (form-to {:enctype "mutlipart/form-data"} [:post "/upload"]
-        (file-upload :file)
-        (submit-button "upload")))
-    (resp/redirect "/")))
+  (layout/common
+    [:h2 "Upload an image"]
+    [:p info]
+    (form-to {:enctype "mutlipart/form-data"} [:post "/upload"]
+      (file-upload :file)
+      (submit-button "upload")))
+  (resp/redirect "/"))
 
 (defn handle-upload [{:keys [filename] :as file}]
   (upload-page
@@ -71,7 +70,7 @@
   (file-response (str galleryies File/separator user-id File/separator file-name)))
 
 (defroutes upload-routes
-  (GET "/upload" [info] (upload-page info))
-  (POST "/upload" {params :params} (upload-page params))
+  (GET "/upload" [info] (restricted (upload-page info)))
+  (POST "/upload" [file] (restricted (hanlde-upload file)))
   (GET "/img/:user-id/:file-name" [user-id file-name]
     (serve-file user-id file-name)))
