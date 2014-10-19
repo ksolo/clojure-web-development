@@ -26,7 +26,7 @@
                 (double ratio) (double ratio))
         transform-op (AffineTransformOp.
                         scale AffineTransformOp/TYPE_BILINEAR)]
-    (.filter tranform-op img (BufferedImage. width height (.getType img)))))
+    (.filter transform-op img (BufferedImage. width height (.getType img)))))
 
 (defn scale-image [file]
   (let [img        (ImageIO/read file)
@@ -36,7 +36,7 @@
     (scale img ratio (int (* img-width ratio)) thumb-size)))
 
 (defn save-thumbnail [{:keys [filename]}]
-  (let [path (str (gallery-path) File/separaator)]
+  (let [path (str (gallery-path) File/separator)]
     (ImageIO/write
       (scale-image (io/input-stream (str path filename)))
       "jpeg"
@@ -49,7 +49,7 @@
     (form-to {:enctype "mutlipart/form-data"} [:post "/upload"]
       (file-upload :file)
       (submit-button "upload")))
-  (resp/redirect "/"))
+  (response/redirect "/"))
 
 (defn handle-upload [{:keys [filename] :as file}]
   (upload-page
@@ -67,10 +67,10 @@
           (str "error uploading file " (.getMessage ex)))))))
 
 (defn serve-file [user-id file-name]
-  (file-response (str galleryies File/separator user-id File/separator file-name)))
+  (file-response (str gallery File/separator user-id File/separator file-name)))
 
 (defroutes upload-routes
   (GET "/upload" [info] (restricted (upload-page info)))
-  (POST "/upload" [file] (restricted (hanlde-upload file)))
+  (POST "/upload" [file] (restricted (handle-upload file)))
   (GET "/img/:user-id/:file-name" [user-id file-name]
     (serve-file user-id file-name)))
