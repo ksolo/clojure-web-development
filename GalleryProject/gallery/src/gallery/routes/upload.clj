@@ -56,13 +56,15 @@
     (if (empty? filename)
       "please select a file to upload"
       (try
-        ;;save the file and create thumbnail
-        (noir.io/upload-file (gallery-path) file :create-path? true)
+        (noir.io/upload-file (gallery-path) file)
         (save-thumbnail file)
-        ;;display the thumbnail
+        (db/add-image (session/get :user) filename)
         (image {:height "150px"}
-          (str "/img/" thumb-prefix (url-encode filename)))
-
+          (str "/img/"
+               (session/get :user)
+               "/"
+               thumb-prefix
+               (url-encode filename)))
         (catch Exception ex
           (str "error uploading file " (.getMessage ex)))))))
 
