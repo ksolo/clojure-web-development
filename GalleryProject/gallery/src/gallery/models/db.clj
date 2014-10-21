@@ -25,3 +25,7 @@
         (sql/insert-record :images {:userid userid :name name})
         (throw
           (Exception. "you have already uploaded an image with the same name")))))
+
+(defn images-by-user [userid]
+  (with-db sql/with-query-results
+    res ["select * from images where userid = ?" userid] (doall res)))
