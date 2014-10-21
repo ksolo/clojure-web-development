@@ -17,3 +17,11 @@ label {
 .error {
   color: red;
 }
+
+.thumbnail {
+  float: left;
+  padding: 5px;
+  margin: 8px;
+  border: 1px solid #ccc;
+  box-shadow: 4px 4px 6px -1px #222;
+}
