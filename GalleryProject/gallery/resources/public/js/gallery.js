@@ -11,7 +11,7 @@ $(function(){
       alert("no images selected");
     }
     else {
-      $.post("/delete", {names: selectedIds}, function(response){
+      $.post(context + "/delete", {names: selectedIds}, function(response){
         var errors = $("<ul>");
         $.each(response, function(){
           if ("ok" === this.status) {
