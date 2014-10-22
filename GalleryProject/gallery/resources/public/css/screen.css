@@ -25,3 +25,13 @@ label {
   border: 1px solid #ccc;
   box-shadow: 4px 4px 6px -1px #222;
 }
+
+.menuitem {
+  float: left;
+  margin-right: 10px;
+}
+
+.content {
+  clear: both;
+  padding: 20px;
+}
