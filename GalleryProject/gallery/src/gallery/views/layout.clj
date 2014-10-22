@@ -22,7 +22,7 @@
     (form-to [:post "/login"]
       (text-field {:placeholder "screen name"} "id")
       (password-field {:placeholder "password"} "pass")
-      (submit-button "login"))]))
+      (submit-button "login"))))
 
 (defn user-menu [user]
   (make-menu

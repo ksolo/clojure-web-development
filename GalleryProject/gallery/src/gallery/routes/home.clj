@@ -5,7 +5,7 @@
             [gallery.routes.gallery :refer [show-galleries]]))
 
 (defn home []
-  (layout/common (show-galleries))
+  (layout/common (show-galleries)))
 
 (defroutes home-routes
   (GET "/" [] (home)))
