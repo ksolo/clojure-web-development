@@ -11,6 +11,15 @@
     [:a {:href (image-uri userid name)}
       (image (thumb-uri userid name))]])
 
+(defn gallery-link [{:keys [userid name]}]
+  [:div.thumbnail
+    [:a {:href (str "/gallery/" userid)}
+      (image (thumb-uri userid name))
+      userid "'s gallery"]])
+
+(defn show-galleries []
+  (map gallery-link (db/get-gallery-previews)))
+
 (defn display-gallery [userid]
   (or
     (not-empty (map thumbnail-link (db/images-by-user userid)))
