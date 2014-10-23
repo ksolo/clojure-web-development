@@ -26,7 +26,7 @@
   (RenderablePage. content))
 
 (defn make-menu [& items]
-  [:div (for [item items] [:div.menuitem item])])
+  [:div#usermenu (for [item items] [:div.menuitem item])])
 
 (defn guest-menu []
   (make-menu

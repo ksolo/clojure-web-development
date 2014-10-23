@@ -1,6 +1,7 @@
 body {
-  background-color: #fff;
-  color: #555;
+  margin: 0px;
+  background-color: #c8d9c9;
+  color: #525952;
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
   font-size: 13px;
 }
@@ -34,4 +35,25 @@ label {
 .content {
   clear: both;
   padding: 20px;
+}
+
+#usermenu {
+  background-color: #878c87;
+  width: 100%;
+  border-bottom-color: #dedede;
+  line-height: 25px;
+  border: 1px solid;
+  border-color: #ccc;
+  box-shadow: 0 8px 6px -6px #555;
+  margin-bottom: 25px;
+  display: inline-block;
+}
+
+#usermenu a {
+  text-decoration: none;
+  color: white;
+}
+
+#usermenu a:hover {
+  text-decoration: underline;
 }
